@@ -1,0 +1,93 @@
+digraph G {
+    label="AI Finance Assistant with Risk Analysis & Deal Detection";
+    labelloc="t";
+    fontsize=24;
+    fontweight="bold";
+    fontname="Helvetica,Arial,sans-serif";
+    node [fontname="Helvetica,Arial,sans-serif", shape=box, style="rounded,filled", fillcolor="AliceBlue", margin="0.2"];
+    edge [fontname="Helvetica,Arial,sans-serif", fontsize=10, color="#555555"];
+    
+    subgraph cluster_user {
+        label="User Interfaces (React)";
+        style=filled;
+        color="#d1d5db";
+        fillcolor="#f3f4f6";
+        User [shape=actor, fillcolor="white", label="User"]
+        FinGuardUI [label="FinGuard Dashboard\n(React, Chart.js)"]
+        DealDetectiveUI [label="DealDetective Interface\n(React)"]
+        VoiceUI [label="Voice AI Agent\n(Wake Word / Gemini)"]
+        
+        User -> FinGuardUI [label=" Logs expenses,\n views insights"]
+        User -> VoiceUI [label=" Speaks commands"]
+        User -> DealDetectiveUI [label=" Pastes product URL,\n sets alerts"]
+    }
+    
+    subgraph cluster_finguard {
+        label="FinGuard Module (FastAPI)";
+        style=filled;
+        color="#93c5fd";
+        fillcolor="#eff6ff";
+        ExpenseAPI [label="Expense & Profile API"]
+        MLPipeline [label="Staged ML Pipeline\n(K-Means, Isolation Forest)"]
+        DOLE [label="DOLE\nDecision Learning Engine"]
+        TextToSQL [label="Text-to-SQL Engine"]
+        
+        FinGuardUI -> ExpenseAPI [label=" REST API"]
+        VoiceUI -> ExpenseAPI [label=" Parsed commands"]
+        ExpenseAPI -> MLPipeline [label=" Triggers analysis"]
+        ExpenseAPI -> DOLE [label=" Simulate / Record"]
+        FinGuardUI -> TextToSQL [label=" /chat/analyze"]
+    }
+    
+    subgraph cluster_dealdetective {
+        label="DealDetective Module (FastAPI)";
+        style=filled;
+        color="#fca5a5";
+        fillcolor="#fef2f2";
+        Scraper [label="Multi-strategy Scraper\n(Requests + Playwright)"]
+        GeminiAnalysis [label="AI Analysis Engine\n(Gemini 2.5 Flash)"]
+        TwinFinder [label="Semantic Fingerprinting\n(text-embedding-004)"]
+        AlertMonitor [label="Price Alert Monitor\n(Asyncio)"]
+        
+        DealDetectiveUI -> Scraper [label=" Submit URL"]
+        Scraper -> GeminiAnalysis [label=" Raw HTML"]
+        GeminiAnalysis -> TwinFinder [label=" Product Specs & Title"]
+        TwinFinder -> DealDetectiveUI [label=" Returns Twins"]
+        DealDetectiveUI -> AlertMonitor [label=" Create alert"]
+    }
+    
+    subgraph cluster_database {
+        label="Shared Database (PostgreSQL)";
+        style=filled;
+        color="#d1d5db";
+        fillcolor="#ffffff";
+        PG [label="PostgreSQL Database", shape=cylinder, fillcolor="#e5e7eb", height=0.8];
+        PGVector [label="pgvector Extension", shape=cylinder, fillcolor="#e5e7eb", height=0.6];
+        
+        ExpenseAPI -> PG [label=" Read/Write expenses"]
+        MLPipeline -> PG [label=" Save Recommendations"]
+        DOLE -> PG [label=" Log decisions"]
+        TextToSQL -> PG [label=" Execute clean SQL"]
+        GeminiAnalysis -> PG [label=" Store specs/prices"]
+        TwinFinder -> PGVector [label=" Vector Similarity Search\n (Cosine Distance)"]
+        AlertMonitor -> PG [label=" Check Alerts vs Current Price"]
+    }
+    
+    subgraph cluster_external {
+        label="External Services";
+        style="dashed,rounded";
+        color="#9ca3af";
+        fillcolor="transparent";
+        Ecommerce [label="E-Commerce Platforms\nAmazon, Flipkart, Snapdeal", fillcolor="#fef3c7"];
+        GoogleAI [label="Google AI Services\nGemini API", fillcolor="#dcfce3"];
+        AudioServices [label="Audio Services\nPicoVoice, Deepgram", fillcolor="#e0e7ff"];
+        
+        Scraper -> Ecommerce [label=" Scrape HTML", style=dashed]
+        GeminiAnalysis -> GoogleAI [label=" Structured Extraction", style=dashed]
+        TwinFinder -> GoogleAI [label=" Embeddings", style=dashed]
+        TextToSQL -> GoogleAI [label=" SQL Generation", style=dashed]
+        ExpenseAPI -> GoogleAI [label=" Receipt OCR (Vision)", style=dashed]
+        VoiceUI -> AudioServices [label=" STT / TTS", style=dashed]
+        VoiceUI -> GoogleAI [label=" Chat Completion", style=dashed]
+    }
+}

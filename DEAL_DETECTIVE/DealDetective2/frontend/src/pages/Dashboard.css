@@ -1,0 +1,102 @@
+/* Dashboard.css */
+.dashboard-container {
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+}
+
+.hero-section {
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    letter-spacing: -2px;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary-glow) 0%, var(--secondary-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 48px;
+    line-height: 1.6;
+}
+
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 8px 8px 24px;
+    /* Less padding right because button is there */
+    border-radius: 100px;
+    /* Pill shape */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-bar-container:focus-within {
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+}
+
+.search-icon {
+    color: var(--text-muted);
+}
+
+.hero-input-transparent {
+    flex: 1;
+    background: transparent;
+    border: none;
+    font-size: 1.1rem;
+    color: white;
+    min-width: 0;
+}
+
+.hero-input-transparent:focus {
+    outline: none;
+}
+
+.features-grid {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 48px;
+    opacity: 0.7;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.error-message {
+    color: var(--danger);
+    margin-top: 20px;
+    background: rgba(255, 0, 85, 0.1);
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 0, 85, 0.2);
+}

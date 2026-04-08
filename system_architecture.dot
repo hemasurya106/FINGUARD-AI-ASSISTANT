@@ -1,0 +1,55 @@
+// Complete System Architecture
+digraph AI_Financial_Assistant_Architecture {
+	overlap=false rankdir=TB size="12,12" splines=ortho
+	node [fontname=Arial fontsize=12 margin=0.2 shape=box style="filled, rounded"]
+	edge [color="#2c3e50" fontname=Arial fontsize=10]
+	subgraph cluster_ui {
+		color="#f0f4f8" fontcolor="#2c3e50" fontsize=14 label="User Interface Layer" style=filled
+		finguard_ui [label="FinGuard Dashboard
+(React.js / Tailwind)" fillcolor="#E1F5FE"]
+		dealdetective_ui [label="DealDetective UI
+(React.js / Vite)" fillcolor="#E1F5FE"]
+		voice_interface [label="Voice Interface
+(Mic/Speaker)" fillcolor="#E1F5FE" shape=ellipse]
+	}
+	subgraph cluster_services {
+		color="#fdfcf0" fontcolor="#2c3e50" fontsize=14 label="Application Services Layer" style=filled
+		finbot_api [label="FinBot Core API
+(FastAPI)" fillcolor="#FFF9C4"]
+		dealdetective_engine [label="DealDetective Engine
+(FastAPI)" fillcolor="#FFF9C4"]
+		voice_server [label="Voice Intelligence Server
+(WebSockets / FastAPI)" fillcolor="#FFF9C4"]
+	}
+	subgraph cluster_ai_ml {
+		color="#f3f0f5" fontcolor="#2c3e50" fontsize=14 label="AI/ML Intelligence Layer" style=filled
+		gemini [label="Gemini 2.0 Flash
+(LLM / Reasoning)" fillcolor="#F3E5F5"]
+		deepgram [label="Deepgram Nova-2
+(STT / TTS)" fillcolor="#F3E5F5"]
+		dole_model [label="DOLE Predictor
+(Random Forest ML)" fillcolor="#F3E5F5"]
+		ocr_engine [label="OCR Engine
+(Tesseract/EasyOCR)" fillcolor="#F3E5F5"]
+	}
+	subgraph cluster_data {
+		color="#f0f5f1" fontcolor="#2c3e50" fontsize=14 label="Data Persistence Layer" style=filled
+		db [label="Core Database
+(PostgreSQL / SQLite)" fillcolor="#E8F5E9" shape=cylinder]
+		cache [label="Session Cache
+(In-memory)" fillcolor="#E8F5E9" shape=cylinder]
+	}
+	finguard_ui -> finbot_api [label="REST API"]
+	dealdetective_ui -> dealdetective_engine [label="REST API"]
+	voice_interface -> voice_server [label="WebSocket Binary Stream"]
+	finbot_api -> dealdetective_engine [label="Cross-Service Calls" style=dashed]
+	voice_server -> finbot_api [label="Trigger Actions"]
+	finbot_api -> ocr_engine [label="Process Receipts"]
+	finbot_api -> dole_model [label="Risk Inference"]
+	voice_server -> deepgram [label="STT/TTS stream"]
+	voice_server -> gemini [label="Natural Language Context"]
+	dealdetective_engine -> gemini [label="Product Matching / Analysis"]
+	finbot_api -> db [label=SQLAlchemy]
+	dealdetective_engine -> db [label=SQLAlchemy]
+	voice_server -> cache [label="State Mgmt"]
+}

@@ -1,0 +1,131 @@
+digraph DealDetective_Pipeline {
+    rankdir=TB;
+    splines=ortho;
+    fontname="Arial";
+    fontsize=13;
+    compound=true;
+    node [fontname="Arial", fontsize=11, style="filled,rounded", margin="0.15,0.1"];
+    edge [fontname="Arial", fontsize=9, color="#2c3e50"];
+
+    // ─── INPUT LAYER ───────────────────────────────────────────────────────────
+    subgraph cluster_input {
+        label="User Input";
+        style=filled; color="#e3f2fd"; fontsize=13; fontcolor="#1565c0";
+
+        url_input  [label="Product URL\n(e.g. Amazon/Flipkart)", shape=parallelogram, fillcolor="#90caf9"];
+        img_input  [label="Product Image\n(Upload)", shape=parallelogram, fillcolor="#90caf9"];
+        name_input [label="Product Name\n(Text Search)", shape=parallelogram, fillcolor="#90caf9"];
+    }
+
+    // ─── FASTAPI ROUTER ────────────────────────────────────────────────────────
+    router [label="POST /analyze-input\n(FastAPI Router)", shape=box, fillcolor="#fff9c4", width=2.5];
+
+    url_input  -> router [label="url="];
+    img_input  -> router [label="image="];
+    name_input -> router [label="product_name="];
+
+    // ─── URL PROCESSING PIPELINE ───────────────────────────────────────────────
+    subgraph cluster_url_pipeline {
+        label="URL Processing Pipeline";
+        style=filled; color="#fce4ec"; fontsize=13; fontcolor="#880e4f";
+
+        robots [label="robots_service\nrobots.txt Check\n(8s timeout)", shape=diamond, fillcolor="#f48fb1"];
+        blocked [label="403 Forbidden\n(Strict Compliance)", shape=box, fillcolor="#ef9a9a"];
+
+        subgraph cluster_fetch {
+            label="HTML Fetch (scraper_service)";
+            style=filled; color="#fce4ec"; fontsize=11;
+            static_fetch [label="Static Fetch\n(requests + Retry)", shape=box, fillcolor="#f8bbd0"];
+            browser_fetch [label="Browser Fetch\n(Playwright / headless Chromium)", shape=box, fillcolor="#f8bbd0"];
+        }
+
+        gemini_html [label="gemini_service\nanalyze_html(html, url)\nExtract: Title, Price, Specs, Images, AI", shape=box, fillcolor="#e1bee7", width=3];
+        manual_scraper [label="scraper_service\nscrape_product_url(url)\n(Fallback: BS4 selectors)", shape=box, fillcolor="#e1bee7"];
+        generic_adapter [label="generic_adapter\nextract(html, url)\n(Last-resort fallback)", shape=box, fillcolor="#e1bee7"];
+    }
+
+    router -> robots [label="URL path"];
+    robots -> blocked [label="Denied"];
+    robots -> static_fetch [label="Allowed"];
+    static_fetch -> browser_fetch [label="Empty / 403 block\n→ Retry with JS render", style=dashed];
+    static_fetch -> gemini_html [label="HTML OK"];
+    browser_fetch -> gemini_html [label="Rendered HTML"];
+    gemini_html -> manual_scraper [label="Gemini fails\n/ empty title", style=dashed];
+    manual_scraper -> generic_adapter [label="Fails", style=dashed];
+
+    // ─── IMAGE PIPELINE ────────────────────────────────────────────────────────
+    subgraph cluster_img_pipeline {
+        label="Image Pipeline";
+        style=filled; color="#e8f5e9"; fontsize=13; fontcolor="#1b5e20";
+        gemini_vision [label="gemini_service\nanalyze_image(bytes)\n(Gemini Vision)", shape=box, fillcolor="#a5d6a7", width=2.5];
+    }
+
+    router -> gemini_vision [label="image= path"];
+
+    // ─── NAME PIPELINE ─────────────────────────────────────────────────────────
+    subgraph cluster_name_pipeline {
+        label="Name Pipeline";
+        style=filled; color="#fff8e1"; fontsize=13; fontcolor="#e65100";
+        gemini_text [label="gemini_service\nask_gemini(prompt)\n(Text Search)", shape=box, fillcolor="#ffe082", width=2.5];
+    }
+
+    router -> gemini_text [label="name= path"];
+
+    // ─── AI ENRICHMENT ─────────────────────────────────────────────────────────
+    subgraph cluster_ai {
+        label="AI Enrichment (concurrent)";
+        style=filled; color="#f3e5f5"; fontsize=13; fontcolor="#4a148c";
+        jargon [label="Jargon Buster\n(clean_jargon)", shape=box, fillcolor="#ce93d8"];
+        eco    [label="Eco-Meter\n(calculate_eco_score)", shape=box, fillcolor="#ce93d8"];
+    }
+
+    gemini_html -> jargon [label="if missing", style=dashed, lhead=cluster_ai];
+    gemini_html -> eco    [style=dashed];
+
+    // ─── FINALIZATION ──────────────────────────────────────────────────────────
+    finalize [label="Finalize Response\n• Platform detection\n• Price validation & cleaning\n• Discount % calculation", shape=box, fillcolor="#b2dfdb", width=3];
+
+    gemini_html    -> finalize;
+    gemini_vision  -> finalize;
+    gemini_text    -> finalize;
+    manual_scraper -> finalize;
+    generic_adapter -> finalize;
+    jargon         -> finalize;
+    eco            -> finalize;
+
+    // ─── STORAGE ───────────────────────────────────────────────────────────────
+    subgraph cluster_storage {
+        label="Data Persistence (SQLAlchemy)";
+        style=filled; color="#e8f5e9"; fontsize=13; fontcolor="#1b5e20";
+        product_table      [label="Product Table\n(upsert by product_id + platform)", shape=cylinder, fillcolor="#a5d6a7"];
+        price_history_table [label="PriceHistory Table\n(append price point)", shape=cylinder, fillcolor="#a5d6a7"];
+    }
+
+    finalize -> product_table;
+    finalize -> price_history_table;
+
+    // ─── API RESPONSE ──────────────────────────────────────────────────────────
+    api_response [label="AnalyzeResponse\n(JSON to Frontend)", shape=parallelogram, fillcolor="#90caf9"];
+    finalize -> api_response;
+
+    // ─── ALERT DISPATCH ────────────────────────────────────────────────────────
+    subgraph cluster_alerts {
+        label="Background: Alert Monitor (runs every 1h)";
+        style=filled; color="#fff3e0"; fontsize=13; fontcolor="#bf360c";
+
+        alert_fetch   [label="Fetch Active Alerts\n(PriceAlert table, BATCH_SIZE=10)", shape=box, fillcolor="#ffcc80"];
+        alert_scrape  [label="Re-scrape Product URL\n(scraper_service → Gemini)", shape=box, fillcolor="#ffcc80"];
+        alert_check   [label="current_price ≤ target_price?", shape=diamond, fillcolor="#ffe0b2"];
+        email_svc     [label="email_service\nsend_price_alert_email()", shape=box, fillcolor="#ff8a65"];
+        deactivate    [label="alert.is_active = False\n(Single-shot)", shape=box, fillcolor="#ffcc80"];
+        update_ts     [label="alert.last_checked = now()\ndb.commit()", shape=box, fillcolor="#ffcc80"];
+    }
+
+    price_history_table -> alert_fetch [style=dashed, label="Triggers polling cycle"];
+    alert_fetch -> alert_scrape;
+    alert_scrape -> alert_check;
+    alert_check -> email_svc [label="Yes"];
+    alert_check -> update_ts [label="No"];
+    email_svc -> deactivate;
+    deactivate -> update_ts;
+}

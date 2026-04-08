@@ -1,0 +1,63 @@
+/* Button.css */
+.btn {
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-accent), var(--secondary-glow));
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 170, 255, 0.3);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text-muted);
+}
+
+.btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Card.css - Global for now */
+.glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+}
+
+/* Input.css */
+.hero-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    padding: 16px 24px;
+    border-radius: var(--radius-md);
+    color: white;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.hero-input:focus {
+    outline: none;
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+}

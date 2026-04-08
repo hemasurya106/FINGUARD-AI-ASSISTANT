@@ -1,0 +1,91 @@
+date,total_spend,food_spend,shopping_spend,weekend,cluster,anomaly,recommendation
+2025-10-03,360,222,0,0,0,1,Spending is within your normal range.
+2025-10-04,965,122,0,1,0,1,Spending is within your normal range.
+2025-10-05,928,285,0,1,0,1,Spending is within your normal range.
+2025-10-06,378,376,0,0,0,1,Spending is within your normal range.
+2025-10-07,2109,227,1837,0,1,-1,⚠ High-risk spending detected. Consider delaying non-essential purchases.
+2025-10-08,393,351,0,0,0,1,Spending is within your normal range.
+2025-10-09,301,260,0,0,0,1,Spending is within your normal range.
+2025-10-10,1916,314,1588,0,1,1,High spending day. Monitor your expenses carefully.
+2025-10-11,2283,173,1313,1,1,-1,⚠ High-risk spending detected. Consider delaying non-essential purchases.
+2025-10-12,303,143,0,1,0,1,Spending is within your normal range.
+2025-10-13,1595,323,1259,0,1,1,High spending day. Monitor your expenses carefully.
+2025-10-14,303,295,0,0,0,1,Spending is within your normal range.
+2025-10-15,315,307,0,0,0,1,Spending is within your normal range.
+2025-10-16,368,221,0,0,0,1,Spending is within your normal range.
+2025-10-17,263,200,0,0,0,1,Spending is within your normal range.
+2025-10-18,406,213,0,1,0,1,Spending is within your normal range.
+2025-10-19,2012,299,1582,1,1,1,High spending day. Monitor your expenses carefully.
+2025-10-20,271,233,0,0,0,1,Spending is within your normal range.
+2025-10-21,264,164,0,0,0,1,Spending is within your normal range.
+2025-10-22,532,388,0,0,0,1,Spending is within your normal range.
+2025-10-23,2333,331,1964,0,1,-1,⚠ High-risk spending detected. Consider delaying non-essential purchases.
+2025-10-24,289,248,0,0,0,1,Spending is within your normal range.
+2025-10-25,992,381,0,1,0,1,Spending is within your normal range.
+2025-10-26,504,113,0,1,0,1,Spending is within your normal range.
+2025-10-27,439,333,0,0,0,1,Spending is within your normal range.
+2025-10-28,437,393,0,0,0,1,Spending is within your normal range.
+2025-10-29,2102,105,1929,0,1,-1,⚠ High-risk spending detected. Consider delaying non-essential purchases.
+2025-10-30,514,381,0,0,0,1,Spending is within your normal range.
+2025-10-31,442,295,0,0,0,1,Spending is within your normal range.
+2025-11-01,1575,328,728,1,1,1,High spending day. Monitor your expenses carefully.
+2025-11-02,2591,146,1758,1,1,-1,⚠ High-risk spending detected. Consider delaying non-essential purchases.
+2025-11-03,381,361,0,0,0,1,Spending is within your normal range.
+2025-11-04,270,225,0,0,0,1,Spending is within your normal range.
+2025-11-05,325,309,0,0,0,1,Spending is within your normal range.
+2025-11-06,285,233,0,0,0,1,Spending is within your normal range.
+2025-11-07,190,121,0,0,0,1,Spending is within your normal range.
+2025-11-08,710,243,0,1,0,1,Spending is within your normal range.
+2025-11-09,1076,361,0,1,0,1,Spending is within your normal range.
+2025-11-10,387,253,0,0,0,1,Spending is within your normal range.
+2025-11-11,475,325,0,0,0,1,Spending is within your normal range.
+2025-11-12,263,176,0,0,0,1,Spending is within your normal range.
+2025-11-13,863,188,594,0,0,1,Spending is within your normal range.
+2025-11-14,353,347,0,0,0,1,Spending is within your normal range.
+2025-11-15,311,148,0,1,0,1,Spending is within your normal range.
+2025-11-16,868,206,0,1,0,1,Spending is within your normal range.
+2025-11-17,296,181,0,0,0,1,Spending is within your normal range.
+2025-11-18,447,344,0,0,0,1,Spending is within your normal range.
+2025-11-19,285,107,96,0,0,-1,Unusual spending pattern detected. Review today’s expenses.
+2025-11-20,1643,198,1410,0,1,1,High spending day. Monitor your expenses carefully.
+2025-11-21,357,344,0,0,0,1,Spending is within your normal range.
+2025-11-22,393,341,0,1,0,1,Spending is within your normal range.
+2025-11-23,914,390,0,1,0,1,Spending is within your normal range.
+2025-11-24,1857,196,1549,0,1,1,High spending day. Monitor your expenses carefully.
+2025-11-25,160,104,0,0,0,1,Spending is within your normal range.
+2025-11-26,466,352,0,0,0,1,Spending is within your normal range.
+2025-11-27,386,177,85,0,0,1,Spending is within your normal range.
+2025-11-28,202,130,0,0,0,1,Spending is within your normal range.
+2025-11-29,1344,369,861,1,1,-1,⚠ High-risk spending detected. Consider delaying non-essential purchases.
+2025-11-30,585,112,0,1,0,1,Spending is within your normal range.
+2025-12-01,381,295,0,0,0,1,Spending is within your normal range.
+2025-12-02,471,399,0,0,0,1,Spending is within your normal range.
+2025-12-03,1063,274,669,0,0,1,Spending is within your normal range.
+2025-12-04,375,338,0,0,0,1,Spending is within your normal range.
+2025-12-05,456,367,0,0,0,1,Spending is within your normal range.
+2025-12-06,836,184,0,1,0,1,Spending is within your normal range.
+2025-12-07,460,171,0,1,0,1,Spending is within your normal range.
+2025-12-08,366,257,0,0,0,1,Spending is within your normal range.
+2025-12-09,1013,320,667,0,0,1,Spending is within your normal range.
+2025-12-10,879,311,421,0,0,1,Spending is within your normal range.
+2025-12-11,460,381,0,0,0,1,Spending is within your normal range.
+2025-12-12,305,200,0,0,0,1,Spending is within your normal range.
+2025-12-13,665,194,0,1,0,1,Spending is within your normal range.
+2025-12-14,528,305,0,1,0,1,Spending is within your normal range.
+2025-12-15,238,210,0,0,0,1,Spending is within your normal range.
+2025-12-16,371,255,0,0,0,1,Spending is within your normal range.
+2025-12-17,387,274,0,0,0,1,Spending is within your normal range.
+2025-12-18,379,244,0,0,0,1,Spending is within your normal range.
+2025-12-19,327,243,0,0,0,1,Spending is within your normal range.
+2025-12-20,1064,349,0,1,0,1,Spending is within your normal range.
+2025-12-21,310,214,0,1,0,1,Spending is within your normal range.
+2025-12-22,2405,397,1966,0,1,-1,⚠ High-risk spending detected. Consider delaying non-essential purchases.
+2025-12-23,321,320,0,0,0,1,Spending is within your normal range.
+2025-12-24,331,243,0,0,0,1,Spending is within your normal range.
+2025-12-25,431,371,0,0,0,1,Spending is within your normal range.
+2025-12-26,476,378,0,0,0,1,Spending is within your normal range.
+2025-12-27,1013,197,0,1,0,1,Spending is within your normal range.
+2025-12-28,2525,375,1340,1,1,-1,⚠ High-risk spending detected. Consider delaying non-essential purchases.
+2025-12-29,306,287,0,0,0,1,Spending is within your normal range.
+2025-12-30,1190,290,868,0,0,1,Spending is within your normal range.
+2025-12-31,369,347,0,0,0,1,Spending is within your normal range.

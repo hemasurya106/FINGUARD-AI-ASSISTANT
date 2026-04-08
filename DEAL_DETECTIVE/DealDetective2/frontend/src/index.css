@@ -1,0 +1,48 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  body {
+    @apply bg-background text-white min-h-screen overflow-x-hidden antialiased selection:bg-primary-glow/30;
+  }
+
+  /* Custom Scrollbar for Webkit */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-card backdrop-blur-md border border-white/5 shadow-glass;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-glow via-white to-secondary-glow bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient_4s_ease_infinite];
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+}
+
+/* Dynamic Background Grid */
+.bg-grid-pattern {
+  background-size: 50px 50px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+}

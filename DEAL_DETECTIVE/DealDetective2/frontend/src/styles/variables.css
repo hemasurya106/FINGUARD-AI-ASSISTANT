@@ -1,0 +1,41 @@
+/* frontend/src/styles/variables.css */
+:root {
+  /* Core Colors - Cyberpunk High Contrast */
+  --bg-dark: #050510;
+  --bg-card: rgba(18, 18, 30, 0.7);
+  --bg-card-hover: rgba(30, 30, 50, 0.8);
+  
+  --primary-glow: #00f0ff;
+  --primary-accent: #00aaff;
+  
+  --secondary-glow: #7000ff;
+  --secondary-accent: #bc13fe;
+
+  --success: #00ff9d;
+  --warning: #ffbd2e;
+  --danger: #ff0055;
+  
+  --text-main: #ffffff;
+  --text-muted: #8a8a9b;
+  
+  /* Glassmorphism */
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: 12px;
+  
+  /* Spacing */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.05) 0%, transparent 40%);
+  min-height: 100vh;
+}

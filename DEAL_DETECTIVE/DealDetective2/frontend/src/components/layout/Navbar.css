@@ -1,0 +1,53 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    position: sticky;
+    top: 20px;
+    margin: 0 20px;
+    z-index: 100;
+    border-radius: 100px;
+    /* Pill shape */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.logo-icon {
+    filter: drop-shadow(0 0 5px var(--primary-glow));
+}
+
+.logo-text {
+    background: linear-gradient(90deg, #fff, #ccc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.highlight {
+    color: var(--primary-glow);
+    -webkit-text-fill-color: var(--primary-glow);
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: white;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
