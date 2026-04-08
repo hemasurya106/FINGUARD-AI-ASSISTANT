@@ -1,4 +1,4 @@
-# 🧠 Jarvis Financial OS
+# 🧠 AI FINANCIAL ASSISTANT WITH RISK ANALYSIS AND DEAL DETECTIVE SYSTEM
 
 **Jarvis Financial OS** is a comprehensive personal finance dashboard integrated with a Voice AI Agent and a Smart Deal Detective module. It combines expense tracking, risk analysis, and voice control into a single glassmorphism-styled interface.
 
