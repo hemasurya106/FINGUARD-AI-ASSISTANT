@@ -33,6 +33,8 @@
 *   **Backend**: FastAPI, PostgreSQL/SQLite, SQLAlchemy
 *   **AI/ML**: Google Gemini 2.0, Deepgram Aura, Scikit-Learn (DOLE Model)
 *   **Voice**: PicoVoice (Wake Word), WebSockets
+  ## STEPS TO RUN
+  
 # Make sure you are in the root 'sf' folder
 cd /Users/hemasurya/Desktop/sf
 
