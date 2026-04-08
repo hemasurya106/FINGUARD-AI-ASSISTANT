@@ -50,5 +50,3 @@ uvicorn app.main:app --reload --port 8002
 # deal detective frontend
 cd /Users/hemasurya/Desktop/sf/DEAL_DETECTIVE/DealDetective2/frontend
 npm run dev# AI-FINANCIAL-ASSISTANT
-# AI-FINANCIAL-ASSISTANT
-surya@gmail.com
