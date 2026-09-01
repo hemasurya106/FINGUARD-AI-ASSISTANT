@@ -109,9 +109,17 @@ def register_user(user: dict):
 async def scan_bill(file: UploadFile = File(...)):
     print(f"Analyzing bill: {file.filename}")
     
-    # 1. Read Image
-    contents = await file.read()
-    image = Image.open(io.BytesIO(contents))
+    try:
+        # 1. Read Image — wrapped in try so malformed files return graceful fallback
+        contents = await file.read()
+        image = Image.open(io.BytesIO(contents))
+    except Exception as e:
+        print(f"Image Read Error: {e}")
+        return {
+            "amount": 0,
+            "category": "Extraction Failed",
+            "date": str(date.today())
+        }
     
     # Check for API Key
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -544,7 +552,7 @@ async def analyze_data(request: ChatRequest):
         with engine.connect() as connection:
             for i, sql in enumerate(queries):
                 # Safety
-                if any(x in sql.upper() for x in ["DROP", "DELETE", "UPDATE", "INSERT", "ALTER"]):
+                if any(x in sql.upper() for x in ["DROP", "DELETE", "UPDATE", "INSERT", "ALTER", "TRUNCATE"]):
                     continue
                 
                 try:

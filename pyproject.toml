@@ -1,0 +1,23 @@
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+asyncio_mode = "auto"
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+# Run coverage automatically on every pytest invocation.
+# --cov-report=xml writes coverage.xml for CI artifact upload.
+addopts = "--cov=backend --cov-report=term-missing --cov-report=xml"
+
+[tool.coverage.run]
+# Don't count test files themselves toward coverage metrics.
+omit = [
+    "backend/tests/*",
+    "backend/__pycache__/*",
+]
+
+[tool.coverage.report]
+# Lines that are only reachable via __main__ don't need coverage.
+exclude_lines = [
+    "if __name__ == .__main__.:",
+    "pragma: no cover",
+]
