@@ -36,14 +36,17 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup_db():
+    from backend.db import DATABASE_URL
+    is_sqlite = DATABASE_URL.startswith("sqlite")
+    serial_type = "INTEGER PRIMARY KEY AUTOINCREMENT" if is_sqlite else "SERIAL PRIMARY KEY"
+
     db = SessionLocal()
-    # Create decisions table check
-    db.execute(text("""
+    db.execute(text(f"""
         CREATE TABLE IF NOT EXISTS decisions (
-            id SERIAL PRIMARY KEY,
+            id {serial_type},
             user_id TEXT NOT NULL,
-            decision_date DATE NOT NULL,
-            target_date DATE NOT NULL,
+            decision_date TEXT NOT NULL,
+            target_date TEXT NOT NULL,
             amount FLOAT NOT NULL,
             category TEXT,
             balance_at_decision FLOAT,
@@ -51,8 +54,8 @@ def startup_db():
             ai_verdict TEXT,
             confidence_score FLOAT,
             outcome_label TEXT,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        );
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )
     """))
     db.commit()
     db.close()
