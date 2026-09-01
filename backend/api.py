@@ -36,8 +36,8 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup_db():
-    from backend.db import DATABASE_URL
-    is_sqlite = DATABASE_URL.startswith("sqlite")
+    # Detect dialect from the live engine — respects test patches on backend.api.engine
+    is_sqlite = engine.dialect.name == "sqlite"
     serial_type = "INTEGER PRIMARY KEY AUTOINCREMENT" if is_sqlite else "SERIAL PRIMARY KEY"
 
     db = SessionLocal()
@@ -60,6 +60,7 @@ def startup_db():
     db.commit()
     db.close()
     print("✅ Startup: Decisions table checked/created.")
+
 
 import os
 
