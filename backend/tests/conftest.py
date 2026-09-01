@@ -35,6 +35,9 @@ _TestSessionLocal = sessionmaker(bind=_test_engine, autocommit=False, autoflush=
 
 def _create_tables(engine):
     """Create all tables needed by the FINGUARD API in the test database."""
+    is_sqlite = engine.url.get_dialect().name == "sqlite"
+    serial_type = "INTEGER PRIMARY KEY AUTOINCREMENT" if is_sqlite else "SERIAL PRIMARY KEY"
+
     with engine.connect() as conn:
         conn.execute(text("""
             CREATE TABLE IF NOT EXISTS users (
@@ -42,9 +45,9 @@ def _create_tables(engine):
                 email TEXT
             )
         """))
-        conn.execute(text("""
+        conn.execute(text(f"""
             CREATE TABLE IF NOT EXISTS expenses (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id {serial_type},
                 user_id TEXT NOT NULL,
                 date TEXT NOT NULL,
                 category TEXT,
@@ -62,18 +65,18 @@ def _create_tables(engine):
                 current_balance REAL
             )
         """))
-        conn.execute(text("""
+        conn.execute(text(f"""
             CREATE TABLE IF NOT EXISTS goals (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id {serial_type},
                 user_id TEXT,
                 category TEXT,
                 limit_amount REAL,
                 period TEXT
             )
         """))
-        conn.execute(text("""
+        conn.execute(text(f"""
             CREATE TABLE IF NOT EXISTS decisions (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id {serial_type},
                 user_id TEXT NOT NULL,
                 decision_date TEXT NOT NULL,
                 target_date TEXT NOT NULL,
@@ -87,9 +90,9 @@ def _create_tables(engine):
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP
             )
         """))
-        conn.execute(text("""
+        conn.execute(text(f"""
             CREATE TABLE IF NOT EXISTS recommendations (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id {serial_type},
                 user_id TEXT,
                 date TEXT,
                 total_spend REAL,
